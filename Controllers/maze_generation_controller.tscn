@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cba70wxbh2ok5"]
+
+[ext_resource type="Script" path="res://Controllers/maze_generation_controller.gd" id="1_msyid"]
+
+[node name="maze_generation_controller" type="Node"]
+script = ExtResource("1_msyid")

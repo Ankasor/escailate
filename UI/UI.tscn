@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2bn5osui421a"]
+
+[ext_resource type="Script" path="res://UI/CountdownLabel.gd" id="1_4376a"]
+[ext_resource type="Script" path="res://UI/UI.gd" id="1_kk3o7"]
+[ext_resource type="Script" path="res://UI/Story_Label.gd" id="3_yj7e4"]
+
+[sub_resource type="Animation" id="Animation_yljj2"]
+resource_name = "alarm"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.258824, 0.0117647, 0.0156863, 0), Color(0.258824, 0.0117647, 0.0156863, 0.478431), Color(0.258824, 0.0117647, 0.0156863, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/MarginContainer/CountdownLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.901961, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_me7c3"]
+resource_name = "text_fade"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/MarginContainer/Story_Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ekoy5"]
+resource_name = "text_fade_quick"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/MarginContainer/Story_Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7f3b8"]
+_data = {
+"alarm": SubResource("Animation_yljj2"),
+"text_fade": SubResource("Animation_me7c3"),
+"text_fade_quick": SubResource("Animation_ekoy5")
+}
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("ap", "text_ap")]
+script = ExtResource("1_kk3o7")
+ap = NodePath("AnimationPlayer")
+text_ap = NodePath("AnimationPlayer2")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 64
+
+[node name="CountdownLabel" type="RichTextLabel" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 16
+text = "32:23"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("1_4376a")
+
+[node name="Story_Label" type="RichTextLabel" parent="Control/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center] Press any key to start[/center]"
+fit_content = true
+autowrap_mode = 2
+shortcut_keys_enabled = false
+script = ExtResource("3_yj7e4")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+modulate = Color(0.258824, 0.0117647, 0.0156863, 0)
+z_index = 100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7f3b8")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7f3b8")
+}

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgu30ski7g8b4"]
+
+[ext_resource type="Texture2D" uid="uid://dgdg3v607mpl" path="res://Assets/sprites.tres" id="1_p13ev"]
+[ext_resource type="Script" path="res://Objects/finish.gd" id="2_lhbou"]
+[ext_resource type="Texture2D" uid="uid://cqwtfq3si154d" path="res://Assets/2d_lights_and_shadows_neutral_point_light.webp" id="3_ubl3q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fq3gs"]
+radius = 11.0
+
+[node name="Finish" type="Sprite2D"]
+z_index = -2
+z_as_relative = false
+texture = ExtResource("1_p13ev")
+hframes = 11
+vframes = 11
+frame = 78
+script = ExtResource("2_lhbou")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fq3gs")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 1, 1, 1)
+texture = ExtResource("3_ubl3q")
+height = 20.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu6kl6hou08ja"]
+
+[ext_resource type="Script" path="res://Controllers/tile_replacement_controller.gd" id="1_qegkv"]
+
+[node name="tile_replacement_controller" type="Node"]
+script = ExtResource("1_qegkv")

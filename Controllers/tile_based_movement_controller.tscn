@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cwfchavgwyskf"]
+
+[node name="tile_based_movement_controller" type="Node2D"]

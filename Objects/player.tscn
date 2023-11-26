@@ -1,0 +1,153 @@
+[gd_scene load_steps=12 format=3 uid="uid://dqe8xr634i352"]
+
+[ext_resource type="Script" path="res://Objects/player.gd" id="1_hln6k"]
+[ext_resource type="Texture2D" uid="uid://o4imgvgl80os" path="res://Assets/EnemyId_150071_blue_v2.png" id="2_apreq"]
+[ext_resource type="PackedScene" uid="uid://cwfchavgwyskf" path="res://Controllers/tile_based_movement_controller.tscn" id="2_bnqxi"]
+[ext_resource type="Script" path="res://Controllers/tile_based_movement_controller.gd" id="3_ijsa8"]
+
+[sub_resource type="Gradient" id="Gradient_eegu0"]
+colors = PackedColorArray(0.12, 0.12, 0.12, 1, 1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gocce"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="Animation" id="Animation_jcrco"]
+resource_name = "move_down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -12), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_klrxu"]
+resource_name = "move_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(12, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xiadx"]
+resource_name = "move_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-12, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_57dex"]
+resource_name = "move_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 12), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gt40m"]
+_data = {
+"move_down": SubResource("Animation_jcrco"),
+"move_left": SubResource("Animation_klrxu"),
+"move_right": SubResource("Animation_xiadx"),
+"move_up": SubResource("Animation_57dex")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_controller", "sprite", "ap")]
+script = ExtResource("1_hln6k")
+movement_controller = NodePath("tile_based_movement_controller")
+sprite = NodePath("Sprite2D")
+idle_amplitude = 3.0
+idle_frequency = 2.0
+movement_delay = 0.11
+ap = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("2_apreq")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Sprite2D"]
+position = Vector2(0, 34.6667)
+scale = Vector2(2.66667, 2.66667)
+amount = 5
+lifetime = 0.2
+explosiveness = 0.12
+randomness = 0.75
+emission_shape = 3
+emission_rect_extents = Vector2(7, 1)
+direction = Vector2(0, -1)
+spread = 133.85
+gravity = Vector2(0, 0)
+initial_velocity_max = 47.29
+damping_min = 2.027
+damping_max = 63.513
+color_ramp = SubResource("Gradient_eegu0")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Sprite2D"]
+
+[node name="tile_based_movement_controller" parent="." node_paths=PackedStringArray("body") instance=ExtResource("2_bnqxi")]
+script = ExtResource("3_ijsa8")
+body = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gocce")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gt40m")
+}

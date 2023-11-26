@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cihft5lkrur"]
+
+[ext_resource type="Texture2D" uid="uid://dgdg3v607mpl" path="res://Assets/sprites.tres" id="1_tatss"]
+[ext_resource type="Script" path="res://Objects/start.gd" id="2_evlhd"]
+[ext_resource type="Texture2D" uid="uid://cqwtfq3si154d" path="res://Assets/2d_lights_and_shadows_neutral_point_light.webp" id="3_pufyk"]
+
+[node name="Start" type="Sprite2D"]
+z_index = -2
+z_as_relative = false
+texture = ExtResource("1_tatss")
+hframes = 11
+vframes = 11
+frame = 89
+script = ExtResource("2_evlhd")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0.0980392, 1)
+texture = ExtResource("3_pufyk")
+height = 50.0
